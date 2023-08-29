@@ -1,0 +1,67 @@
+<!--Добавление автобуса-->
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layout}"
+      lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Профиль</title>
+</head>
+<body>
+<div layout:fragment="content">
+  <h1>Профиль</h1>
+  <div sec:authorize="isAuthenticated()" th:if="${#authentication.getPrincipal().getUserId()} == ${user.id}">
+    <p>Логин: <span th:text="${user.login}"></span></p>
+    <p>Почта: <span th:text="${user.email}"></span></p>
+    <p>Дата рождения: <span th:text="${user.birthDate}"></span></p>
+    <p>Телефон: <span th:text="${user.phone}"></span></p>
+    <p>Адрес: <span th:text="${user.address}"></span></p>
+  </div>
+    <p>Имя: <span th:text="${user.firstName}"></span></p>
+    <p>Фамилия: <span th:text="${user.lastName}"></span></p>
+    <p>Отчество: <span th:text="${user.middleName}"></span></p>
+    <p>Страна: <span th:text="${user.country}"></span></p>
+  <a
+      sec:authorize="isAuthenticated() && !(hasRole('ADMIN'))"
+      th:href="'/users/profile/update/' + ${user.id}"
+      class="btn btn-primary"
+      role="button"
+      th:if="${#authentication.getPrincipal().getUserId()} == ${user.id}"
+      aria-disabled="true">Редактировать</a>
+  <a
+          sec:authorize="isAuthenticated() && (hasRole('USER'))"
+          th:href="'/users/subscription/' + ${user.id}"
+          class="btn btn-primary"
+          role="button"
+          th:if="${#authentication.getPrincipal().getUserId()} == ${user.id}"
+          aria-disabled="true">Купить подписку</a>
+
+  <a
+          sec:authorize="isAuthenticated() && (hasRole('SUPER'))"
+          th:href="'/'"
+          class="btn btn-primary"
+          role="button"
+          th:if="${#authentication.getPrincipal().getUserId()} == ${user.id}"
+          aria-disabled="true">Подписка оплачена. Возврат на главную страницу.</a>
+
+  <a
+          sec:authorize="isAuthenticated() && (hasRole('USER') || (hasRole('SUPER')))"
+          th:href="'/users/start/' + ${user.id}"
+          class="btn btn-primary"
+          role="button"
+          th:if="${#authentication.getPrincipal().getUserId()} == ${user.id}"
+          aria-disabled="true">Старт</a>
+
+<!--  <a-->
+<!--          sec:authorize="isAuthenticated() && (hasRole('USER') || (hasRole('SUPER')))"-->
+<!--          th:href="'/users/check/' + ${user.id}"-->
+<!--          class="btn btn-primary"-->
+<!--          role="button"-->
+<!--          th:if="${#authentication.getPrincipal().getUserId()} == ${user.id}"-->
+<!--          aria-disabled="true">Проверить состояние оборудования</a>-->
+
+
+</div>
+</body>
+</html>

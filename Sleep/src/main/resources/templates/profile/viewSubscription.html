@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}"
+      lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Покупка подписки</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h3 th:text="${user.getFirstName()}"></h3>
+    <form method="POST" enctype="multipart/form-data" th:action="@{/users/subscription}" th:object="${publishForm}">
+        <input type="hidden" name="userId"
+               th:value="${user.id}">
+        <h1 class="mt-2">Стоимость подписки 1000 рублей</h1>
+        <button type="submit" class="btn btn-primary">Купить</button>
+        <button type="button" class="btn btn-secondary" onclick="window.history.back()">Назад</button>
+    </form>
+</div>
+</body>
+</html>

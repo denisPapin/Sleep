@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}"
+      lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Приятного сна</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h3 th:text="${user.getFirstName()}"></h3>
+    <iframe width="1080" height="630" src="https://www.youtube.com/embed/LYs0r8KoC1M"
+            title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen></iframe>
+    <form method="POST" enctype="multipart/form-data" th:action="@{/users/start}" th:object="${publishForm}">
+        <input type="hidden" name="userId"
+               th:value="${user.id}">
+        <button type="submit" class="btn btn-primary">Начать</button>
+    </form>
+    <form method="POST" enctype="multipart/form-data" th:action="@{/users/stop}" th:object="${publishForm}">
+        <input type="hidden" name="userId"
+               th:value="${user.id}">
+        <button type="submit" class="btn btn-primary">Стоп</button>
+        <button type="button" class="btn btn-secondary" onclick="window.history.back()">Назад</button>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!--Добавление автобуса-->
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}"
+      lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Просмотр медитации</title>
+</head>
+<body>
+<form layout:fragment="content">
+  <div>
+    <h3 th:text="'Информация о медитации: ' + ${meditation.getName()}"></h3>
+    <form class="row g-1">
+      <div class="mb-2 row">
+        <label for="name" class="col-sm-2 col-form-label no-border">Название:</label>
+        <div class="col-sm-10">
+          <p th:text="${meditation.getName()}" class="form-control-plaintext" id="name">
+        </div>
+      </div>
+      <div class="mb-2 row">
+        <label for="direction" class="col-sm-2 col-form-label">Направленность:</label>
+        <div class="col-sm-10">
+          <p th:text="${meditation.getDirection().getGenreTextDisplay()}" class="form-control-plaintext" id="direction">
+        </div>
+      </div>
+      <div class="mb-2 row">
+        <label class="col-sm-2 col-form-label">Онлайн копия:</label>
+        <div class="col-sm-10">
+          <a class="text-link text-blue" th:if="${meditation.getFileName()} != null" th:href="@{|/meditations/download?meditationId=${meditation.id}|}">
+            <span>Скачать медитацию</span>
+          </a>
+        </div>
+<!--        <audio id="player" src="../meditations/download.mp3"></audio>-->
+<!--        <div>-->
+<!--          <button onclick="document.getElementById('player').play()">Воспроизведение</button>-->
+<!--          <button onclick="document.getElementById('player').pause()">Пауза</button>-->
+<!--          <button onclick="document.getElementById('player').volume+=0.1">Громкость +</button>-->
+<!--          <button onclick="document.getElementById('player').volume-=0.1">Громкость -</button>-->
+<!--        </div>-->
+      </div>
+      <audio controls="controls">
+        <source src="../meditations/download.mp3" type="audio/mpeg">
+      </audio>
+
+
+    </form>
+    <hr class="hr"/>
+    <div class="mt-2">
+      <button type="button" class="btn btn-secondary" onclick="window.history.back()">Назад</button>
+    </div>
+  </div>
+</form>
+</body>
+</html>

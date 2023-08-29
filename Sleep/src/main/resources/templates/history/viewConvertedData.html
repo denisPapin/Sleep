@@ -1,0 +1,42 @@
+<!--Добавление автобуса-->
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}"
+      lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Просмотр информации о сне</title>
+</head>
+<body>
+<form layout:fragment="content">
+    <div>
+        <h3 th:text="'Дата: ' + ${convertedData.getDate()}"></h3>
+        <form class="row g-1">
+            <div class="mb-2 row">
+                <label for="sleepQuality" class="col-sm-2 col-form-label no-border">Качество сна:</label>
+                <div class="col-sm-10">
+                    <p th:text="${convertedData.getSleepQuality()}" class="form-control-plaintext" id="sleepQuality">
+                </div>
+            </div>
+            <div class="mb-2 row">
+                <label for="sleepDuration" class="col-sm-2 col-form-label">Продолжительность:</label>
+                <div class="col-sm-10">
+                    <p th:text="${convertedData.getSleepDuration()}" class="form-control-plaintext" id="sleepDuration">
+                </div>
+            </div>
+            <div class="mb-2 row">
+                <label for="date" class="col-sm-2 col-form-label">Дата:</label>
+                <div class="col-sm-10">
+                    <p th:text="${convertedData.getDate()}" class="form-control-plaintext" id="date">
+                </div>
+            </div>
+
+        </form>
+        <hr class="hr"/>
+        <div class="mt-2">
+            <button type="button" class="btn btn-secondary" onclick="window.history.back()">Назад</button>
+        </div>
+    </div>
+</form>
+</body>
+</html>

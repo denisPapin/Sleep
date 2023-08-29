@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+  <meta charset="UTF-8">
+  <title>Изменить медитацию</title>
+</head>
+<body>
+<div layout:fragment="content">
+  <h3 class="mt-3 mb-3" th:text="'Обновить медитацию ' + ${meditation.getName()}"></h3>
+  <form enctype="multipart/form-data" class="needs-validation" novalidate style="max-width: 50vw" method="POST" th:action="@{/meditations/update}" th:object="${meditationForm}">
+    <input type="hidden" name="id"
+           th:value="${meditation.id}">
+    <div class="mt-3 row g-2">
+      <div class="col-md">
+        <div class="form-floating">
+          <!--Название поля инпута должно строго соответствовать названию поля класса (DTO)-->
+          <input name="name" th:value="${meditation.getName()}" type="text" class="form-control" id="name" placeholder="Название медитации" required>
+          <label for="name">Название</label>
+          <div class="invalid-feedback">Обязательное поле для заполнения</div>
+        </div>
+      </div>
+      <div class="col-md">
+        <div class="form-floating">
+          <select class="form-select" name="direction" id="direction" required th:object="${meditation}" th:field="*{direction}">
+            <option th:value="default">Выберете направленность из списка</option>
+            <option th:selected="${meditation.getDirection().getGenreTextDisplay()}"
+                    th:each="direction : ${T(com.dp.sleep.model.Direction).values()}"
+                    th:value="${direction}" th:text="${direction.getGenreTextDisplay()}"></option>
+          </select>
+          <label for="direction">Направленность</label>
+          <div class="invalid-feedback">Обязательное поле для заполнения</div>
+        </div>
+      </div>
+    </div>
+    <!--        TODO: тут будет загрузка файла-->
+<!--    <div class="mt-3 form-floating">-->
+<!--      <input type="hidden" th:value="${meditation.getFileName()}" name="fileName" class="form-control form-control-sm">-->
+<!--      <input name="fileName" type="file" class="form-control form-control-sm" id="fileName" placeholder="Онлайн копия файла" style="padding-top: 2rem;">-->
+<!--      <label for="fileName">Онлайн копия</label>-->
+<!--    </div>-->
+    <div class="mt-3 form-floating">
+      <input name="file" type="file" class="form-control form-control-sm" id="fileName" placeholder="Файл с медитацией" style="padding-top: 2rem;">
+      <label for="fileName">Файл с медитацией</label>
+    </div>
+
+    <div class="mt-3 row g-2">
+      <button type="submit" class="btn btn-primary">Обновить</button>
+      <button type="button" class="btn btn-secondary" onclick="window.history.back()">Назад</button>
+    </div>
+  </form>
+</div>
+</body>
+</html>
